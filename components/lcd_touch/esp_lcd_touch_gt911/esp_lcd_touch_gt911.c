@@ -191,12 +191,12 @@ static esp_err_t esp_lcd_touch_gt911_exit_sleep(esp_lcd_touch_handle_t tp)
         };
         ret = gpio_config(&int_gpio_config_high);
         ESP_RETURN_ON_ERROR(ret, TAG, "High GPIO config failed");
-        gpio_set_level(esp_lcd_touch_gt911->config.int_gpio_num, 1);
+        gpio_set_level(esp_lcd_touch_gt911->config.int_gpio_num, 0);
 
-        vTaskDelay(pdMS_TO_TICKS(5));
+        vTaskDelay(pdMS_TO_TICKS(50));
 
         const gpio_config_t int_gpio_config_float = {
-            .mode = GPIO_MODE_OUTPUT_OD,
+            .mode = GPIO_MODE_INPUT,
             .pin_bit_mask = BIT64(esp_lcd_touch_gt911->config.int_gpio_num)
         };
         ret = gpio_config(&int_gpio_config_float);
